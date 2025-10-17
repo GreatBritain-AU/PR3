@@ -1,71 +1,79 @@
 const $btn = document.getElementById('btn-kick');
 const $btn2 = document.getElementById('btn-special');
-
+const $btn3 = document.getElementById('btn-reset');
 
 const character = {
     name: 'Vox',
     defaultHP: 100,
     damageHP: 100,
-    // elHP / elProgressbar будут назначены в init()
+    elHP: null,
+    elProgressbar: null,
+    renderHP: renderHP,
+    changeHP: changeHP,
+    reset: reset,
 };
 
 const enemy = {
     name: 'Alastor',
     defaultHP: 100,
     damageHP: 100,
-    // elHP / elProgressbar будут назначены в init()
+    elHP: null,
+    elProgressbar: null,
+    renderHP: renderHP,
+    changeHP: changeHP,
+    reset: reset,
 };
 
-$btn2.addEventListener('click', function () {
-    console.log('Kick');
-    changeHP(random(50), character);
-    changeHP(random(50), enemy);
-});
+function renderHP() {
+        this.elHP.innerText = this.damageHP + ' / ' + this.defaultHP;
+        this.elProgressbar.style.width = this.damageHP + '%';
+    }
 
-$btn.addEventListener('click', function () {
-    console.log('Kick');
-    changeHP(random(20), character);
-    changeHP(random(20), enemy);
-});
+   function changeHP(dmg) {
+        this.damageHP -= dmg;
+        if (this.damageHP <= 0) {
+            this.damageHP = 0;
+            this.renderHP();
+            alert(`З ганьбою ${this.name} програв цю битву`);
+            $btn.disabled = true;
+            $btn2.disabled = true;
+        } else {
+            this.renderHP();
+        }
+    }
+
+    function reset() {
+        this.damageHP = this.defaultHP;
+        this.renderHP();
+    }
+
+// кнопки
+$btn.onclick = function() {
+    character.changeHP(random(20));
+    enemy.changeHP(random(20));
+};
+
+$btn2.onclick = function() {
+    character.changeHP(random(50));
+    enemy.changeHP(random(50));
+};
+
+$btn3.onclick = function() {
+    character.reset();
+    enemy.reset();
+    $btn.disabled = false;
+    $btn2.disabled = false;
+};
 
 function init() {
-    console.log('Start Game!');
-    // Привязываем DOM-элементы к объектам
     character.elHP = document.getElementById('health-character');
     character.elProgressbar = document.getElementById('progressbar-character');
 
     enemy.elHP = document.getElementById('health-enemy');
     enemy.elProgressbar = document.getElementById('progressbar-enemy');
 
-    renderHP(character);
-    renderHP(enemy);
-}
-
-function renderHP(person) {
-    renderHPLife(person);
-    renderProgressbarHP(person);
-}
-
-function renderHPLife(person) {
-    person.elHP.innerText = person.damageHP + ' / ' + person.defaultHP;
-}
-
-function renderProgressbarHP(person) {
-    // Конкатенируем число с процентом
-    person.elProgressbar.style.width = person.damageHP + '%';
-}
-
-function changeHP(count, person) {
-    if (person.damageHP <= count) { // <= чтобы корректно ловить точное обнуление
-        person.damageHP = 0;
-        renderHP(person); // обновить перед alert
-        alert(`З ганьбою ${person.name} програв цю велику битву`);
-        $btn.disabled = true;
-        $btn2.disabled = true;
-    } else {
-        person.damageHP -= count;
-        renderHP(person);
-    }
+    character.renderHP();
+    enemy.renderHP();
 }
 
 function random(num) {
