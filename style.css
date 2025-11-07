@@ -505,3 +505,7 @@ h1 {
     padding: 6px 0;
 }
 
+.logs {
+    color: #fff;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}

@@ -1,5 +1,4 @@
-
-const logs = [
+export const logs = [
   '[1] згадав щось важливе, але [2], злякавшись, вдарив у передпліччя ворога.',
   '[1] поперхнувся, а [2] від страху врізав коліном у лоб.',
   '[1] замріявся, але [2] тихцем підкрався й ударив.',
@@ -12,15 +11,32 @@ const logs = [
   '[1] хотів щось сказати, але [2] від нудьги розбив брову.'
 ];
 
-const rnd = arr => arr[Math.floor(Math.random() * arr.length)];
+// Випадковий шаблон
+function getRandomLogTemplate() {
+  return logs[Math.floor(Math.random() * logs.length)];
+}
 
-function logBattle(attacker, defender, dmg, hp, maxHp) {
-  const text = rnd(logs)
+// Форматування шаблону
+function formatLog(template, attacker, defender) {
+  return template
     .replace(/\[2\]/g, attacker)
     .replace(/\[1\]/g, defender);
-  const info = ` ${attacker} завдав ${dmg} шкоди → ${defender}: ${hp}/${maxHp}`;
-  const el = document.createElement('div');
-  el.className = 'log-line';
-  el.textContent = text + info;
-  document.getElementById('logs')?.prepend(el);
+}
+
+// Додавання запису в лог
+export function addLogEntry(text) {
+  const logsContainer = document.getElementById('logs');
+  if (!logsContainer) return;
+  const line = document.createElement('div');
+  line.className = 'log-line';
+  line.textContent = text;
+  logsContainer.prepend(line);
+}
+
+// Основна функція логування бою
+export function getBattleLog(attacker, defender, damage, defenderHP, defenderMaxHP) {
+  const template = getRandomLogTemplate();
+  const text = formatLog(template, attacker, defender);
+  const info = ` ${attacker} завдав ${damage} шкоди → ${defender}: ${defenderHP}/${defenderMaxHP}`;
+  addLogEntry(text + info);
 }
