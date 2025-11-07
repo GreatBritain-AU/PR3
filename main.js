@@ -1,4 +1,4 @@
-import Person from './person.js';
+import Overlord from './overl.js';
 import { random, initCounter } from './utils.js';
 import { addLogEntry, getBattleLog } from './logs.js';
 
@@ -15,14 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const enemyHP = document.getElementById('health-enemy');
   const enemyBar = document.getElementById('progressbar-enemy');
 
-  const character = new Person({
+  const character = new Overlord({
     name: (heroNameEl && heroNameEl.textContent.trim()) || 'Vox',
     defaultHP: 100,
     elHP: heroHP,
     elProgressbar: heroBar
   });
 
-  const enemy = new Person({
+  const enemy = new Overlord({
     name: (enemyNameEl && enemyNameEl.textContent.trim()) || 'Alastor',
     defaultHP: 100,
     elHP: enemyHP,
