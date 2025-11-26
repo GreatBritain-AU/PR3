@@ -42,14 +42,19 @@ body {
 }
 
 .control {
-    width: 320px;
-    height: 260px;
+    width: 100%;
+    max-width: 500px;
+    min-height: 300px;
     position: relative;
-    margin: 20px;
+    margin: 20px auto;
     display: flex;
-    justify-content: inherit;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
+    gap: 15px;
+    box-sizing: border-box;
+    padding: 15px;
+    overflow: visible;
 }
 
 .playground {
@@ -163,20 +168,22 @@ body {
 }
 .pokemon .sprite {
     position: absolute;
-    top: 40%;
+    top: 35%;
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     max-width: 170px;
+    z-index: 2;
 }
 
 .pokemon .sprite1 {
     position: absolute;
-    top: 40%;
+    top: 35%;
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     max-width: 240px;
+    z-index: 2;
 }
 
 .pokemon .sprite .enemy{
@@ -187,23 +194,26 @@ body {
 
 .pokemon .details {
     position: absolute;
-    top: 65%;
+    top: 68%;
     left: 0;
     right: 0;
+    z-index: 2;
 }
 .pokemon .details .name {
-    font-size: 20px;
-    font-weight: 400;
+    font-size: 22px;
+    font-weight: 600;
     color: #222;
-    margin: 4px 0;
-    display: inline-block;
+    margin: 8px 0 4px 0;
+    display: block;
+    text-align: center;
 }
 .pokemon .details .hp {
     width: 60%;
     margin: auto;
 }
 .pokemon .details .hp .text {
-    color: #666;
+    color: #000000;
+    font-weight: 600;
     display: inline-block;
     padding-top: 4px;
     font-size: 14px;
@@ -325,6 +335,16 @@ body {
     background: -webkit-gradient(linear, left top, left bottom, from(#ffd78e), to(#ffc55b));
     background: linear-gradient(to bottom, #ffd78e, #ffc55b);
     box-shadow: 0 0 5px 2px white, 0 0 15px #ffe9c1, 0 3px 5px -2px rgba(0, 0, 0, 0.2);
+}
+.button:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.18);
+}
+.button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
 
@@ -508,4 +528,89 @@ h1 {
 .logs {
     color: #fff;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+
+/* Стили для кнопок атак */
+.attack-btn {
+  flex: 0 0 auto;
+  min-width: 140px;
+  max-width: 180px;
+  width: auto;
+  font-size: 14px;
+  margin: 0;
+  text-align: center;
+  white-space: normal;
+  word-wrap: break-word;
+  padding: 10px 12px;
+  box-sizing: border-box;
+}
+
+/* Контейнеры для кнопок атак */
+.attacks-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+#attacks-character {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+#attacks-enemy {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+
+#attacks-container {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.bar {
+  width: 160px;
+  height: 12px;
+  background: #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.12);
+}
+
+.health {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #41bb2c 0%, #14b96a 100%);
+  transition: width 0.25s ease;
+}
+
+
+.health.low {
+  background: linear-gradient(90deg, #ec3e3e 0%, #fa0b0b 100%);
 }

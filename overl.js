@@ -1,4 +1,4 @@
-export default class Overlord {
+export default class Person {
   constructor({ name = 'Unknown', defaultHP = 100, elHP = null, elProgressbar = null } = {}) {
     this.name = name;
     this.defaultHP = defaultHP;
@@ -9,7 +9,10 @@ export default class Overlord {
 
   renderHP() {
     if (this.elHP) this.elHP.innerText = `${this.damageHP} / ${this.defaultHP}`;
-    if (this.elProgressbar) this.elProgressbar.style.width = `${this.damageHP}%`;
+    if (this.elProgressbar) {
+      const percentage = Math.max(0, (this.damageHP / this.defaultHP) * 100);
+      this.elProgressbar.style.width = `${percentage}%`;
+    }
   }
 
   changeHP(damage) {
